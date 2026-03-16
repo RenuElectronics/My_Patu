@@ -1,0 +1,346 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+
+<style>
+
+body{
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ffc0cb,#ffe4e1);
+text-align:center;
+margin:0;
+overflow:hidden;
+}
+
+.page{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+}
+
+.active{
+display:flex;
+}
+
+h1{
+color:#ff0066;
+}
+
+button{
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:30px;
+font-size:18px;
+cursor:pointer;
+background:#ff4d88;
+color:white;
+}
+
+/* NO button */
+
+#noBtn{
+position:relative;
+}
+
+/* cards */
+
+.cards{
+display:flex;
+gap:20px;
+}
+
+.card{
+width:140px;
+height:180px;
+background:white;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 5px 10px rgba(0,0,0,0.2);
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+/* slideshow */
+
+.slideshow img{
+width:280px;
+border-radius:12px;
+display:none;
+}
+
+.caption{
+font-size:18px;
+margin-top:10px;
+}
+
+/* heart rain */
+
+.heart{
+position:fixed;
+top:-20px;
+font-size:22px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+0%{transform:translateY(-10px)}
+100%{transform:translateY(100vh)}
+}
+
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="Audio2.mpeg.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+
+<div class="page active" id="page1">
+
+<img src="couple.gif" width="250">
+
+<h1>PATTU KUTTY ❤️</h1>
+
+<h2>It's your birthday... Can I kidnap you for today? 😜🙈</h2>
+
+<button onclick="nextPage('page2')">YES</button>
+<button id="noBtn">NO</button>
+
+</div>
+
+<!-- PAGE 2 -->
+
+<div class="page" id="page2">
+
+<img src="birthday.gif" width="250">
+
+<h1>HAPPY BIRTHDAY MY LOVE 💖</h1>
+
+<h2>This year will bring you happiness and success.</h2>
+
+<button onclick="nextPage('page3')">Next Surprise</button>
+
+</div>
+
+<!-- PAGE 3 CARDS -->
+
+<div class="page" id="page3">
+
+<h1>Pick Our Date Idea ❤️</h1>
+
+<div class="cards">
+
+<div class="card" onclick="chooseCard(this,'Movie Date 🎬')">?</div>
+<div class="card" onclick="chooseCard(this,'Chocolate Date 🍫')">?</div>
+<div class="card" onclick="chooseCard(this,'Ice Cream Date 🍦')">?</div>
+<div class="card" onclick="chooseCard(this,'Kovil Date 🙏')">?</div>
+
+</div>
+
+<p id="dateResult"></p>
+
+<button id="nextBtn" style="display:none" onclick="nextPage('page4')">Next</button>
+
+</div>
+
+<!-- PAGE 4 SLIDESHOW -->
+
+<div class="page" id="page4">
+
+<h1>Our Memories ❤️</h1>
+
+<div class="slideshow">
+
+<img src="pic1.png" class="slide">
+<img src="pic2.png" class="slide">
+<img src="pic3.png" class="slide">
+<img src="pic4.png" class="slide">
+<img src="pic5.png" class="slide">
+
+</div>
+
+<p id="caption"></p>
+
+</div>
+
+<!-- PAGE 5 PASSWORD -->
+
+<div class="page" id="page5">
+
+<h1>Hey Handsome 😏</h1>
+
+<p>Type the secret phrase</p>
+
+<input id="password">
+
+<button onclick="checkPassword()">Unlock</button>
+
+<p id="error"></p>
+
+</div>
+
+<!-- PAGE 6 FINAL -->
+
+<div class="page" id="page6">
+
+<img src="love.gif" width="250">
+
+<h1>Dear Patu ❤️</h1>
+
+<h2 style="max-width:500px">
+
+I may not say this a lot, but remember I LOVE YOU ALWAYS NO MATTER HOW HARD IT IS. I am not regretting my decision. I LOVE US ❤️ you are always enough
+for me ❤️
+</h2>
+
+</div>
+
+<script>
+
+/* page switch */
+
+function nextPage(id){
+
+document.querySelectorAll(".page").forEach(p=>{
+p.classList.remove("active")
+})
+
+document.getElementById(id).classList.add("active")
+
+if(id==="page4"){
+startSlideshow()
+heartRain()
+}
+
+}
+
+/* NO button dodge */
+
+document.getElementById("noBtn").addEventListener("mouseover",function(){
+
+this.style.position="absolute"
+this.style.left=Math.random()*400+"px"
+this.style.top=Math.random()*400+"px"
+
+})
+
+/* card choose */
+
+let chosen=false
+
+function chooseCard(card,text){
+
+if(chosen) return
+
+chosen=true
+
+card.innerText=text
+
+document.getElementById("dateResult").innerText="Our date: "+text
+
+document.getElementById("nextBtn").style.display="block"
+
+}
+
+/* slideshow */
+
+let slideIndex=0
+
+const captions=[
+"Remember this crazy night 😂",
+"MY Patu ❤️",
+"Cuteness overloaded 🤩",
+"My Endless Happiness 🤩",
+"MY Soul ❤️"
+]
+
+function startSlideshow(){
+showSlides()
+}
+
+function showSlides(){
+
+let slides=document.querySelectorAll(".slide")
+
+slides.forEach(img=>img.style.display="none")
+
+slides[slideIndex].style.display="block"
+
+document.getElementById("caption").innerText=captions[slideIndex]
+
+slideIndex++
+
+if(slideIndex < slides.length){
+
+setTimeout(showSlides,3000)
+
+}
+else{
+
+setTimeout(()=>{
+nextPage("page5")
+},3000)
+
+}
+
+}
+
+/* heart rain */
+
+function heartRain(){
+
+setInterval(()=>{
+
+let heart=document.createElement("div")
+
+heart.className="heart"
+
+heart.innerHTML="❤️"
+
+heart.style.left=Math.random()*window.innerWidth+"px"
+
+heart.style.animationDuration=(Math.random()*3+3)+"s"
+
+document.body.appendChild(heart)
+
+setTimeout(()=>heart.remove(),5000)
+
+},200)
+
+}
+
+/* password */
+
+function checkPassword(){
+
+let pass=document.getElementById("password").value.trim().toLowerCase()
+
+if(pass.toLowerCase()==="patu"){
+nextPage("page6")
+}else{
+document.getElementById("error").innerText="Wrong password 😝"
+}
+
+}
+
+</script>
+
+</body>
+</html>
+```
