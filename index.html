@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,8 +40,6 @@ cursor:pointer;
 background:#ff4d88;
 color:white;
 }
-
-/* NO button */
 
 #noBtn{
 position:relative;
@@ -105,8 +102,10 @@ animation:fall linear forwards;
 
 <body>
 
-<audio autoplay loop>
-<source src="Audio2.mp3" type="audio/mpeg">
+<!-- MUSIC -->
+
+<audio id="bgmusic" loop>
+<source src="Audio.mpeg.mp3" type="audio/mpeg">
 </audio>
 
 <!-- PAGE 1 -->
@@ -119,7 +118,7 @@ animation:fall linear forwards;
 
 <h2>It's your birthday... Can I kidnap you for today? 😜🙈</h2>
 
-<button onclick="nextPage('page2')">YES</button>
+<button onclick="startMusic(); nextPage('page2')">YES</button>
 <button id="noBtn">NO</button>
 
 </div>
@@ -201,19 +200,27 @@ animation:fall linear forwards;
 
 <img src="love.gif" width="250">
 
-<h1>Dear Patu ❤️</h1>
+<h1>Dear Pattu ❤️</h1>
 
 <h2 style="max-width:500px">
 
-I may not say this a lot, but remember I LOVE YOU ALWAYS NO MATTER HOW HARD IT IS. I am not regretting my decision. I LOVE US ❤️ you are always enough
-for me ❤️
+I may not say this a lot, but remember I LOVE YOU ALWAYS NO MATTER HOW HARD IT IS.  
+I am not regretting my decision.  
+I LOVE US ❤️ you are always enough for me ❤️
+
 </h2>
 
 </div>
 
 <script>
 
-/* page switch */
+/* MUSIC START */
+
+function startMusic(){
+document.getElementById("bgmusic").play();
+}
+
+/* PAGE SWITCH */
 
 function nextPage(id){
 
@@ -230,7 +237,7 @@ heartRain()
 
 }
 
-/* NO button dodge */
+/* NO BUTTON DODGE */
 
 document.getElementById("noBtn").addEventListener("mouseover",function(){
 
@@ -240,7 +247,7 @@ this.style.top=Math.random()*400+"px"
 
 })
 
-/* card choose */
+/* CARD CHOOSE */
 
 let chosen=false
 
@@ -258,13 +265,13 @@ document.getElementById("nextBtn").style.display="block"
 
 }
 
-/* slideshow */
+/* SLIDESHOW */
 
 let slideIndex=0
 
 const captions=[
 "Remember this crazy night 😂",
-"MY Patu ❤️",
+"MY Pattu ❤️",
 "Cuteness overloaded 🤩",
 "My Endless Happiness 🤩",
 "MY Soul ❤️"
@@ -301,7 +308,7 @@ nextPage("page5")
 
 }
 
-/* heart rain */
+/* HEART RAIN */
 
 function heartRain(){
 
@@ -325,13 +332,13 @@ setTimeout(()=>heart.remove(),5000)
 
 }
 
-/* password */
+/* PASSWORD */
 
 function checkPassword(){
 
 let pass=document.getElementById("password").value.trim().toLowerCase()
 
-if(pass.toLowerCase()==="patu"){
+if(pass==="pattu"){
 nextPage("page6")
 }else{
 document.getElementById("error").innerText="Wrong password 😝"
@@ -343,4 +350,3 @@ document.getElementById("error").innerText="Wrong password 😝"
 
 </body>
 </html>
-```
